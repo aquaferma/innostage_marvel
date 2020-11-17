@@ -1,0 +1,12 @@
+div.comics {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-right: -50%;
+    margin-top: 2%;
+    transform: translate(-50%, -50%)
+}
+
+div.pages {
+    padding-top: 43%;
+}

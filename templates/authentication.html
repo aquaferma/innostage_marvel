@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load rest_framework %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/authentication.css" %}">
+{% endblock head %}
+
+{% block login %}
+    class="active"
+{% endblock %}
+
+{% block content %} 
+    <div class="auth">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            {% if error %}
+                <div class="form-group has-error">
+                    <span class="help-block">{{ error }}</span>
+                </div>
+            {% endif %}
+            {% render_form serializer template_pack='rest_framework/vertical' %}
+
+            <input type="submit" value="Войти">
+        </form>
+    </div>
+{% endblock %}

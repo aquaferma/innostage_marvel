@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load rest_framework %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/comics.css" %}">
+{% endblock head %}
+
+{% block marvel %}
+    class="active"
+{% endblock %}
+
+{% block content %} 
+
+    <div class="comics">
+        {% if error %}
+            <h1>{{ error }}</h1>
+        {% else %}
+            <ul>
+                {% if comics %}
+                    {% for comic in comics %}
+                        <li><a href="{% url 'comic' comic.id %}">{{ comic.title }}</a></li>
+                    {% endfor %}
+                {% else %}
+                    <li>Комиксов не найдено</li>
+                {% endif %}
+            </ul>
+            
+        {% endif %}
+        
+    </div>
+    <div class="pages">
+        {% if pages %}
+                {% for page in pages %}
+                    <a href="{% url 'comics' page %}?title={{ search_title }}">{{ page }}</a>
+                {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

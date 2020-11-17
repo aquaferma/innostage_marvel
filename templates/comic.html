@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load rest_framework %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/comics.css" %}">
+{% endblock head %}
+
+{% block marvel %}
+    class="active"
+{% endblock %}
+
+{% block content %} 
+
+
+    <div class="comics">
+        {% if error %}
+            <h1>{{ error }}</h1>
+        {% else %}
+            <h1>{{ comic.title }}</h1>
+            <img src="{{comic.thumbnail.path}}.{{comic.thumbnail.extension}}" alt="Обложка" height="425" width="280">
+            <br>
+            <span>Дата выхода: {{ comic.dates.0.date|slice:"0:10" }}</span>
+            <br>
+            <span>EAN: {% if comic.ean %} {{ comic.ean }} {% else %} - {% endif %}</span>
+            <dl>
+            <span>Варианты выхода: </span>
+            {% if comic.variants %} 
+                {% for variant in comic.variants %}
+                    <dt> - {{ variant.name }}</dt>
+                {% endfor %}
+            {% endif %}
+            </dl>
+            {% if not is_saved %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Сохранить к себе">
+            </form>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

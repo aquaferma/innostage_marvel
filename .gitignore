@@ -1,0 +1,10 @@
+*.pyc
+*~
+__pycache__
+*.cfg
+.idea/
+/assets
+/venv
+/src
+/.vscode
+settings.json
